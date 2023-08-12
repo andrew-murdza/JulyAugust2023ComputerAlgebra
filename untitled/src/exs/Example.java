@@ -1,0 +1,29 @@
+package exs;
+
+import actions.structure.Step;
+import lombok.AllArgsConstructor;
+import util.Helper;
+
+import java.util.List;
+
+@AllArgsConstructor
+public class Example {
+    public String prompt;
+    public Question question;
+    public List<Step> steps;
+    public ColorMap map;
+    public Example(String prompt, Question question, List<Step> steps){
+        this(prompt,question,steps,new ColorMap());
+    }
+    public Example(String prompt, Question question, Step...steps){
+        this(prompt,question, Helper.asList(steps));
+    }
+    @AllArgsConstructor
+    public static class Question {
+        public String specific;
+        public String general="";
+        public Question(String specific){
+            this.specific=specific;
+        }
+    }
+}
