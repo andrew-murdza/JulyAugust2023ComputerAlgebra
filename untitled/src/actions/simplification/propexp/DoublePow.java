@@ -6,7 +6,7 @@ import expression.Var;
 import expression.compound.PowExp;
 import util.Helper;
 
-import java.util.List;
+import util.List;
 
 public class DoublePow extends ProcessWithFormula<PowExp> {
     public DoublePow(){
@@ -18,7 +18,7 @@ public class DoublePow extends ProcessWithFormula<PowExp> {
 
     @Override
     public List<PowExp> genList(Expression e) {
-        return Helper.fill(Helper.filterOutInner(Helper.filter(e.powexps(),p->p.base instanceof PowExp)),p->(PowExp)p);
+        return Helper.filterOutInner(e.powexps().filter(p->p.base instanceof PowExp)).fill(p->(PowExp)p);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class DoublePow extends ProcessWithFormula<PowExp> {
 
     @Override
     public List<Expression> genParams(PowExp powExp) {
-        return Helper.asList(((PowExp)powExp.base).base,((PowExp)powExp.base).pow,powExp.pow);
+        return List.of(((PowExp)powExp.base).base,((PowExp)powExp.base).pow,powExp.pow);
     }
 }
 

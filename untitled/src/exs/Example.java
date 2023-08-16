@@ -2,9 +2,7 @@ package exs;
 
 import actions.structure.Step;
 import lombok.AllArgsConstructor;
-import util.Helper;
-
-import java.util.List;
+import util.List;
 
 @AllArgsConstructor
 public class Example {
@@ -16,7 +14,7 @@ public class Example {
         this(prompt,question,steps,new ColorMap());
     }
     public Example(String prompt, Question question, Step...steps){
-        this(prompt,question, Helper.asList(steps));
+        this(prompt,question, List.of(steps));
     }
     @AllArgsConstructor
     public static class Question {

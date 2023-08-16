@@ -8,7 +8,7 @@ import expression.compound.NthRoot;
 import expression.dexp.Int;
 import util.Helper;
 
-import java.util.List;
+import util.List;
 
 public class NthRootToPow extends ProcessWithFormula<NthRoot> {
     public NthRootToPow(){
@@ -19,7 +19,7 @@ public class NthRootToPow extends ProcessWithFormula<NthRoot> {
         return Helper.vars("a","n");
     }
     public List<Integer> shifts(){
-        return Helper.asList(0,1);
+        return List.of(0,1);
     }
 
     @Override
@@ -34,6 +34,6 @@ public class NthRootToPow extends ProcessWithFormula<NthRoot> {
 
     @Override
     public List<Expression> genParams(NthRoot root) {
-        return Helper.asList(root.inside,root.n);
+        return List.of(root.inside,root.n);
     }
 }

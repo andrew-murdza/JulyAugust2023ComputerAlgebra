@@ -6,11 +6,10 @@ import expression.Expression;
 import expression.Var;
 import expression.compound.Frac;
 import expression.compound.PowExp;
-import expression.dexp.Int;
 import expression.dexp.One;
 import util.Helper;
+import util.List;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 public class FracToPow extends ProcessWithFormula<Frac> {
@@ -21,13 +20,13 @@ public class FracToPow extends ProcessWithFormula<Frac> {
         return Helper.vars("a","c","n");
     }
 //    public List<Integer> shifts(){
-//        return Helper.asList(0,0,1);
+//        return List.of(0,0,1);
 //    }
 
     @Override
     public List<Frac> genList(Expression e) {
         Predicate<Frac> pred=p->p.num.isConst()&&p.denom instanceof Var||(p.denom instanceof PowExp)&&!p.denom.isConst();
-        return Helper.fill(Helper.filterOutInner(Helper.filter(e.fracs(),pred)),p->((Frac)p));
+        return Helper.filterOutInner(e.fracs().filter(pred)).fill(p->((Frac)p));
     }
 
     @Override
@@ -41,6 +40,6 @@ public class FracToPow extends ProcessWithFormula<Frac> {
     }
     @Override
     public List<Expression> genParams(Frac frac) {
-        return Helper.asList(frac.denom instanceof PowExp powExp?powExp.base:frac.denom,frac.num,frac.denom instanceof PowExp powExp?powExp.pow:new One());
+        return List.of(frac.denom instanceof PowExp powExp?powExp.base:frac.denom,frac.num,frac.denom instanceof PowExp powExp?powExp.pow:new One());
     }
 }

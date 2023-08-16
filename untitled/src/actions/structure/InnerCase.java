@@ -3,7 +3,7 @@ package actions.structure;
 import actions.structure.Case;
 import lombok.AllArgsConstructor;
 
-import java.util.List;
+import util.List;
 
 @AllArgsConstructor
 public class InnerCase {

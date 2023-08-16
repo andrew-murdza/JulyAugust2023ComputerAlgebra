@@ -1,6 +1,6 @@
 package actions.structure;
 
-import java.util.List;
+import util.List;
 
 public class Step {
     public String title;
@@ -15,5 +15,9 @@ public class Step {
     public Step(String title, String str){
         this.title=title;
         this.str=str;
+    }
+    public Step(String title, List<Step> steps){
+        this.title=title;
+        this.substeps=steps;
     }
 }

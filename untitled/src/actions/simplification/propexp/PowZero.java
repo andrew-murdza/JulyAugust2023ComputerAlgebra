@@ -1,28 +1,28 @@
 package actions.simplification.propexp;
 
-import Relation.Eq;
-import actions.structure.Step;
+import actions.simplification.basic.ApplyToEach;
+import color.Color;
 import expression.Expression;
 import expression.compound.PowExp;
 import expression.dexp.One;
 import expression.dexp.Zero;
-import exs.Example;
 import util.Helper;
 
-import java.util.List;
+import util.List;
 
-public class PowZero {
-    public Example createEx(Expression e){
-        List<PowExp> list= Helper.filter(e.powexps(),p->p.pow instanceof Zero);
-        String prompt="Simplify";
-        Example.Question question=new Example.Question(e.toStringDoubleDollar());
-        Step step1=new Step("Identify all cases of "+Helper.blueText("something raised to the $0$ power")+" by selecting those" +
-                " expressions");
-        Expression f=e.setGroup(list,0);
-        step1.str=f.toStringDoubleDollar();
-        Step step2=new Step("Because "+Helper.blueText("anything to the $0$ power")+" is $1$,"+
-                Helper.goldText(" replace those expressions with $1$"));
-        step2.str=new Eq(f,e.replace(list,p->new One())).toStringDoubleDollar();
-        return new Example(prompt,question,Helper.asList(step1,step2));
+public class PowZero extends ApplyToEach<PowExp> {
+    public static String caseStr="all cases of "+Helper.blueText("something to the power of 0");
+    public PowZero() {
+        super("replace "+caseStr+" with "+Helper.goldText("1"), "Select "+caseStr,
+                "replace "+Helper.blueText("those cases")+" with "+Helper.goldText("1"));
+    }
+    @Override
+    public List<PowExp> genList(Expression e) {
+        return e.powexps().filter(p->p.pow instanceof Zero&&p.base.isNonZero().isTrue()&&p.base.isFinite().isTrue());
+    }
+
+    @Override
+    public Expression editExpression(List<PowExp> list, Expression e) {
+        return e.replace(list,p->new One().setColor(Color.GOLD));
     }
 }

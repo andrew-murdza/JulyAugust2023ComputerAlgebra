@@ -1,6 +1,6 @@
 package set;
 
-import java.util.List;
+import util.List;
 
 public class IntervalUnion extends Set {
     public List<Interval> intervals;

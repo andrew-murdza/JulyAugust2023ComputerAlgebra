@@ -5,17 +5,20 @@ import expression.Expression;
 import expression.Var;
 import lombok.AllArgsConstructor;
 import set.Set;
-import util.Helper;
 
-import java.util.List;
+import util.List;
+
+import java.security.spec.ECField;
 
 @AllArgsConstructor
 public class Rel {
     public Expression left;
     public Expression right;
-    public Expression start;
     public List<Break> breaks;
 
+    public Rel(Expression e, List<Break> breaks){
+        this(e,breaks.last().e,breaks);
+    }
     public String toStringSingleDollarBigText() {
         return "$\\bigtext{"+this+"}$";
     }
@@ -24,7 +27,7 @@ public class Rel {
     }
 
     public enum Sign{
-        GR,STRGR,LE,STRLE,NE,EQ,NONE
+        GR,STRGR,LE,STRLE,NE,EQ,NONE;
         public static Sign getSign(Sign sign1,Sign sign2){
             if(sign1==Sign.EQ){
                 return sign2;
@@ -80,15 +83,16 @@ public class Rel {
             if(sign==STRLE){
                 return GR;
             }
+            return null;//Shouldn't run
         }
     }
 
     public Rel(Expression start, Break... breaks){
-        this(start, Helper.asList(breaks));
+        this(start, List.of(breaks));
     }
 
     public Rel addStep(Color color,Sign sign, Expression e, boolean newLine){
-        return new Rel(start,Helper.addAll(breaks,new Break(color,sign,e,newLine)));
+        return new Rel(left,breaks.add(new Break(color,sign,e,newLine)));
     }
     public Rel addStep(Sign sign, Expression e){
         return addStep(Color.INHERIT,sign,e,true);

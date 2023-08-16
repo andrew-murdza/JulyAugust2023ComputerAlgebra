@@ -6,10 +6,7 @@ import expression.Inf;
 import expression.Var;
 import set.Interval;
 import set.Set;
-import util.Helper;
-
-import java.util.ArrayList;
-import java.util.List;
+import util.List;
 
 public class IntDoubleRel {
     public Var x;
@@ -20,9 +17,9 @@ public class IntDoubleRel {
     public Color colorLeft;
     public Color colorRight;
     public Rel toRel(){
-        List<Rel.Break> breaks=new ArrayList<>();
-        breaks.add(new Rel.Break(colorLeft,openLeft? Rel.Sign.STRLE: Rel.Sign.LE,x,false));
-        breaks.add(new Rel.Break(colorRight,openRight? Rel.Sign.STRLE: Rel.Sign.LE,b,false));
+        List<Rel.Break> breaks=new List<>();
+        breaks.push(new Rel.Break(colorLeft,openLeft? Rel.Sign.STRLE: Rel.Sign.LE,x,false));
+        breaks.push(new Rel.Break(colorRight,openRight? Rel.Sign.STRLE: Rel.Sign.LE,b,false));
         return new Rel(a,breaks);
     }
     public Set toInt(){

@@ -8,9 +8,8 @@ import expression.dexp.One;
 import expression.dexp.Zero;
 import genBool.GenBool;
 import set.Set;
-import util.Helper;
+import util.List;
 
-import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -29,16 +28,16 @@ public abstract class Expression {
     public abstract void assignGroup(int group);
     public abstract Expression plus(List<Expression> es);
     public Expression plus(Expression... es){
-        return plus(Helper.asList(es));
+        return plus(List.of(es));
     }
     public Expression times(Expression... es){
-        return times(Helper.asList(es));
+        return times(List.of(es));
     }
     public abstract Expression minus(List<Expression> es);
     public abstract Expression times(List<Expression> es);
     public abstract Expression div(List<Expression> es);
     public Expression div(Expression e){
-        return div(Helper.asList(e));
+        return div(List.of(e));
     }
     public abstract Expression pow(Expression e);
     public abstract Expression plus(double d);
@@ -88,7 +87,7 @@ public abstract class Expression {
     public abstract Expression setGroup(List<? extends Expression> list, int i); //set
     public abstract Expression setGroupFactors(List<FactorGroup> list, int i); //set
     public Expression setGroupFactors(int i,FactorGroup... list){
-        return setGroupFactors(Helper.asList(list),i);
+        return setGroupFactors(List.of(list),i);
     }
     public abstract List<Expression> denomFactors();//all factors within denominators
     public abstract List<FactorGroup> denomFactorsShallow();//all factors within numerator of a one-level deep denominator
@@ -99,8 +98,11 @@ public abstract class Expression {
     public abstract List<Frac> fracs();//fracs
     public abstract Expression removeColor();//sets all colors to INHERIT
     public abstract Expression textBox();//Wraps inside of textbox
+    public Expression setGroupSign(List<Term> list, int i){
+        return replace(list,p->((Term)p).setSignGroup(i));
+    }
 
-
+    public abstract List<Var> varExps();
     //Unrelated to Tree
     public abstract double toDouble();
     public abstract boolean isConst(Var x);
@@ -158,7 +160,7 @@ public abstract class Expression {
         if(list.isEmpty()){
             return this;
         }
-        return replace(list.get(0),e).remove(Helper.fromIndex(list,1));
+        return replace(list.get(0),e).remove(list.subList(1));
     }
     //Doesn't create new instance
     public Expression setColor(Color color){
@@ -180,5 +182,9 @@ public abstract class Expression {
     }
     public String toStringSingleDollarBigText() {
         return "$\\bigtext{"+ this +"}$";
+    }
+
+    public List<Var> vars() {
+        return varExps().removeRepeats();
     }
 }
