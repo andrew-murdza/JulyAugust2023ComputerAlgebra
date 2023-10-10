@@ -6,10 +6,10 @@ import util.List;
 
 @AllArgsConstructor
 public class InnerCase {
-    public List<actions.structure.Case> cases;
+    public List<Case> cases;
     public int correctCase;
     public String message;
-    public InnerCase(List<Case> cases, int correctCase){
+    public InnerCase(List<Case> cases,int correctCase){
         this(cases,correctCase,"");
     }
 }

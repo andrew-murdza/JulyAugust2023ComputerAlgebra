@@ -4,12 +4,10 @@ import expression.Expression;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Frac extends Expression {
-    public Expression num;
-    public Expression denom;
-
+public class Abs extends Expression {
+    public Expression inside;
     @Override
     public String toStringHelper() {
-        return "\\frac{"+num+"}{"+denom+"}";
+        return "\\left|"+inside+"\\right|";
     }
 }

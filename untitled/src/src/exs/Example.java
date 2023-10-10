@@ -10,7 +10,7 @@ public class Example {
     public String prompt;
     public Question question;
     public List<Step> steps;
-    public exs.ColorMap map;
+    public ColorMap map;
     public Example(String prompt, Question question, List<Step> steps){
         this(prompt,question,steps,new ColorMap());
     }

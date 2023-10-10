@@ -3,6 +3,7 @@ package expression;
 import Relation.Eq;
 import color.Color;
 import expression.compound.*;
+import expression.dexp.DoubleExp;
 import expression.dexp.NegOne;
 import expression.dexp.One;
 import expression.dexp.Zero;
@@ -14,15 +15,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public abstract class Expression {
-
-    public Color color=Color.INHERIT;
-    public int group=-1;
-    public Expression(Color color){
-        this.color=color;
-    }
-    public Expression(){
-
-    }
 
     //Related to Tree, all have color versions
     public abstract void assignGroup(int group);
@@ -64,9 +56,10 @@ public abstract class Expression {
     public abstract Expression floor();
     public abstract Expression p();//Wraps expression in parentheses
     public abstract Expression root(Expression e);
-    public abstract Expression root(double d);
-    public abstract Expression recip();
-
+    public Expression root(double d){
+        return root(DoubleExp.of(d));
+    }
+    public abstract Expression recip();//reciprocal a/b becomes b/a otherwise a becomes 1/a;
 
     //Related to Tree
     public abstract List<Term> terms();                 //All term nodes in the expression (recursive)
@@ -165,6 +158,20 @@ public abstract class Expression {
         return root(3);
     }
 
+    public abstract Expression replaceAndUpdateFactorGroup(Expression e, Expression f, List<FactorGroup> list);//makes replacement
+    //and updates the indices of FactorGroups
+    public abstract Expression replaceAndUpdate(Expression e, Expression f, List<Expression> list);//makes replacement
+    //and updates the indices of Expressions
+
+    public abstract Expression replaceAndUpdate(Expression e, Expression f, List<Expression> list,List<FactorGroup> list1);//makes replacement
+    //and updates the indices of Expressions and FactorGroups
+    public abstract Expression replaceWithSingleAndUpdateGroups(List<Expression> list, Expression h,List<FactorGroup> groups);
+    //replaces expressions and updates the indices of FactorGroups
+    public abstract Expression removeTermsAndUpdate(List<Term> list2, List<List<Term>> list1);
+
+    public abstract Expression replaceWithSingleAndUpdate(List<Term> list2, Expression expression, List<List<Term>> list1);
+    //replaces expressions and updates the indices of FactorGroups
+
     public Expression replaceWithSingle(List<? extends Expression> list, Expression e){
         if(list.isEmpty()){
             return this;
@@ -197,17 +204,27 @@ public abstract class Expression {
         return varExps().removeRepeats();
     }
 
-    public abstract Expression replaceAndUpdateFactorGroup(Expression e, Expression f, List<FactorGroup> list);//makes replacement
-    //and updates the indices of FactorGroups
-    public abstract Expression replaceAndUpdate(Expression e, Expression f, List<Expression> list);//makes replacement
-    //and updates the indices of Expressions
+    public abstract String toStringHelper();
+    //makes subscripts and superscripts look nicer
+    public static String cleanUpScript(String string) {
+        return string.replaceAll("\\\\frac","\\\\powfrac");
+    }
+    @Override
+    public String toString() {
+        String str=toStringHelper();
+        return color!=Color.INHERIT?"\\"+color+"{"+str+"}":str;
+    }
 
-    public abstract Expression replaceAndUpdate(Expression e, Expression f, List<Expression> list,List<FactorGroup> list1);//makes replacement
-    //and updates the indices of Expressions and FactorGroups
-    public abstract Expression replaceWithSingleAndUpdateGroups(List<Expression> list, Expression h,List<FactorGroup> groups);
-    //replaces expressions and updates the indices of FactorGroups
-    public abstract Expression removeTermsAndUpdate(List<Term> list2, List<List<Term>> list1);
+    public Color color=Color.INHERIT;
+    public int group=-1;
+    public Expression(Color color){
+        this.color=color;
+    }
+    public static String applyColor(Color color, String string){
+        return string.isEmpty() ?"":color!=Color.INHERIT?"\\"+color+"{"+string+"}":string;
+    }
+    public Expression(){
 
-    public abstract Expression replaceWithSingleAndUpdate(List<Term> list2, Expression expression, List<List<Term>> list1);
-    //replaces expressions and updates the indices of FactorGroups
+    }
+
 }

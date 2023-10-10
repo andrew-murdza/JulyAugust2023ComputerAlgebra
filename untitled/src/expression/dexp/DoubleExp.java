@@ -20,4 +20,9 @@ public class DoubleExp extends Expression {
     public static DoubleExp of(double val){
         return of(val,Color.INHERIT);
     }
+
+    @Override
+    public String toStringHelper() {
+        return val+"";
+    }
 }

@@ -5,15 +5,15 @@ import lombok.AllArgsConstructor;
 import util.List;
 
 @AllArgsConstructor
-public class TermList extends Expression {
-    public List<Term> terms;
+public class FactorList extends Expression {
+    List<Expression> es;
 
     @Override
     public String toStringHelper() {
         String str="";
-        for(int i=0;i<terms.size();i++){
-            str+=(terms.get(i).isAdded?i>0?"+":"":"-")+ terms.get(i);
+        for(Expression e:es){
+            str+=e.terms().size()>1?"("+e+")":e;
         }
-        return str.isEmpty()?"0":str;
+        return str.isEmpty()?"1":str;
     }
 }

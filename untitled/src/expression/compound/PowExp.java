@@ -7,4 +7,9 @@ import lombok.AllArgsConstructor;
 public class PowExp extends Expression{
     public Expression base;
     public Expression pow;
+
+    @Override
+    public String toStringHelper() {
+        return base+"^{"+Expression.cleanUpScript(pow.toString())+"}";
+    }
 }

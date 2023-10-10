@@ -4,7 +4,7 @@ import expression.Expression;
 import expression.compound.NthRoot;
 import expression.dexp.Int;
 
-public class Sqrt extends expression.compound.NthRoot {
+public class Sqrt extends NthRoot {
     public Sqrt(Expression inside){
         super(Int.of(2),inside);
     }

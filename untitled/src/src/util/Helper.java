@@ -9,9 +9,9 @@ import util.List;
 
 public class Helper {
 
-    public static <T> List<T> flatten1Level(List<List<T>> list){
-        List<T> returnList= new List<>();
-        for(List<T> list1:list){
+    public static <T> util.List<T> flatten1Level(util.List<util.List<T>> list){
+        util.List<T> returnList= new util.List<>();
+        for(util.List<T> list1:list){
             returnList.addAll(list1);
         }
         return returnList;
@@ -27,7 +27,7 @@ public class Helper {
         }
         return "";
     }
-    public static String textBoxArrayStr(List<String> prompts, List<String> responses, List<Boolean> eqSign){
+    public static String textBoxArrayStr(util.List<String> prompts, util.List<String> responses, util.List<Boolean> eqSign){
         String returnString="\\[\\a{";
         for(int i=0;i<prompts.size();i++){
             String[] strs=new String[]{"\\t{",":}","\\tb"};
@@ -38,11 +38,11 @@ public class Helper {
         }
         return returnString+"}\\]";
     }
-    public static String textBoxArray(List<String> prompts, List<Expression> responses, List<Boolean> eqSign){
+    public static String textBoxArray(util.List<String> prompts, util.List<Expression> responses, util.List<Boolean> eqSign){
         return textBoxArrayStr(prompts,responses.fill(Expression::toString),eqSign);
     }
     public static String textBoxArray(String prompt,String response, boolean eqSign){
-        return textBoxArrayStr(List.of(prompt),List.of(response),List.of(eqSign));
+        return textBoxArrayStr(util.List.of(prompt), util.List.of(response), util.List.of(eqSign));
     }
 
     public static String blueText(String text, int type){
@@ -82,7 +82,7 @@ public class Helper {
         return "";
     }
 
-    public static Expression sum(List<Expression> es){
+    public static Expression sum(util.List<Expression> es){
         Expression e=new Zero();
         for(Expression e1:es){
             e=e.plus(e1).simplify();
@@ -90,7 +90,7 @@ public class Helper {
         return e;
     }
 
-    public static String listExp(List<? extends Expression> list) {
+    public static String listExp(util.List<? extends Expression> list) {
         String str="";
         for(int i=0;i<list.size();i++){
             str+=(i>0?", \\":"")+list.get(i).toString();
@@ -98,19 +98,19 @@ public class Helper {
         return str;
     }
 
-    public static @NonNull List<FactorGroup> filterOutInnerFactorGroup(List<FactorGroup> groups) {
+    public static @NonNull util.List<FactorGroup> filterOutInnerFactorGroup(util.List<FactorGroup> groups) {
         //TODO
-        return new List<>();
+        return new util.List<>();
     }
-    public static @NonNull List<Expression> filterOutInner(List<? extends Expression> groups) {
+    public static @NonNull util.List<Expression> filterOutInner(util.List<? extends Expression> groups) {
         //TODO
-        return new List<>();
+        return new util.List<>();
     }
 
-    public static List<Var> vars(List<String>strs) {
+    public static util.List<Var> vars(util.List<String> strs) {
         return strs.fill(Var::new);
     }
-    public static List<Var> vars(String... strs){
+    public static util.List<Var> vars(String... strs){
         return vars(List.of(strs));
     }
 }
