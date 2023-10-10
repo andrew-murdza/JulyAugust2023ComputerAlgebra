@@ -1,4 +1,4 @@
-package actions.simplification.propexp;
+package src.actions.simplification.propexp;
 
 import actions.simplification.basic.complete.RemoveEach;
 import expression.Expression;

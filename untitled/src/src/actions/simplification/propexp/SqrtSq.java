@@ -1,11 +1,10 @@
-package actions.simplification.propexp;
+package src.actions.simplification.propexp;
 
 import actions.simplification.basic.complete.ApplyToEach;
 import expression.Expression;
 import expression.compound.NthRoot;
 import expression.compound.PowExp;
 import util.Helper;
-
 import util.List;
 
 public class SqrtSq extends ApplyToEach<PowExp> {

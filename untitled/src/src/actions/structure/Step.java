@@ -1,5 +1,7 @@
-package actions.structure;
+package src.actions.structure;
 
+import actions.structure.DropDown;
+import actions.structure.InnerCase;
 import util.List;
 
 public class Step {

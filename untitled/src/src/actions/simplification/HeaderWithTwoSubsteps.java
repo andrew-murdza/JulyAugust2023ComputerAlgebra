@@ -1,12 +1,13 @@
-package actions.simplification;
+package src.actions.simplification;
 
 import Relation.Eq;
 import actions.StepsResult;
+import actions.simplification.StepGen;
 import actions.structure.Step;
 import expression.Expression;
 import util.List;
 
-public abstract class HeaderWithTwoSubsteps implements StepGen<Expression,Expression>{
+public abstract class HeaderWithTwoSubsteps implements StepGen<Expression,Expression> {
     public HeaderWithTwoSubsteps(String step1Title,String step11Title, String step12Title){
         this.step1Title=step1Title;
         this.step11Title=step11Title;

@@ -1,6 +1,7 @@
-package util;
+package src.util;
 
 import genBool.GenBool;
+import util.TriConsumer;
 
 import java.util.ArrayList;
 import java.util.Arrays;

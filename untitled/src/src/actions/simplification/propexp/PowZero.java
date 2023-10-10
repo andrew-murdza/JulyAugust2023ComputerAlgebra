@@ -1,4 +1,4 @@
-package actions.simplification.propexp;
+package src.actions.simplification.propexp;
 
 import actions.simplification.basic.complete.ApplyToEach;
 import color.Color;
@@ -7,7 +7,6 @@ import expression.compound.PowExp;
 import expression.dexp.One;
 import expression.dexp.Zero;
 import util.Helper;
-
 import util.List;
 
 public class PowZero extends ApplyToEach<PowExp> {

@@ -1,8 +1,7 @@
-package expression.compound;
+package src.expression.compound;
 
 import expression.Expression;
 import lombok.AllArgsConstructor;
-
 import util.List;
 @AllArgsConstructor
 public class FactorGroup {

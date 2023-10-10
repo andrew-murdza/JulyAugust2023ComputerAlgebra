@@ -1,8 +1,10 @@
-package expression;
+package src.expression;
 
 import Relation.Eq;
 import color.Color;
+import expression.Var;
 import expression.compound.*;
+import expression.dexp.DoubleExp;
 import expression.dexp.NegOne;
 import expression.dexp.One;
 import expression.dexp.Zero;
@@ -14,15 +16,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public abstract class Expression {
-
-    public Color color=Color.INHERIT;
-    public int group=-1;
-    public Expression(Color color){
-        this.color=color;
-    }
-    public Expression(){
-
-    }
 
     //Related to Tree, all have color versions
     public abstract void assignGroup(int group);
@@ -64,9 +57,10 @@ public abstract class Expression {
     public abstract Expression floor();
     public abstract Expression p();//Wraps expression in parentheses
     public abstract Expression root(Expression e);
-    public abstract Expression root(double d);
-    public abstract Expression recip();
-
+    public Expression root(double d){
+        return root(DoubleExp.of(d));
+    }
+    public abstract Expression recip();//reciprocal a/b becomes b/a otherwise a becomes 1/a;
 
     //Related to Tree
     public abstract List<Term> terms();                 //All term nodes in the expression (recursive)
@@ -104,10 +98,10 @@ public abstract class Expression {
         return replace(list,p->((Term)p).setSignGroup(i));
     }
 
-    public abstract List<Var> varExps();
+    public abstract List<expression.Var> varExps();
     //Unrelated to Tree
     public abstract double toDouble();
-    public abstract boolean isConst(Var x);
+    public abstract boolean isConst(expression.Var x);
     public abstract boolean isConst();
     public abstract GenBool isPos();
     public abstract GenBool isStrPos();
@@ -115,8 +109,8 @@ public abstract class Expression {
     public abstract GenBool isStrNeg();
     public abstract GenBool isZero();
     public abstract GenBool isNonZero();
-    public abstract Expression sub(Var x, Expression e);
-    public Expression sub(List<Var> xs, List<Expression> es){
+    public abstract Expression sub(expression.Var x, Expression e);
+    public Expression sub(List<expression.Var> xs, List<Expression> es){
         Expression e=this;
         for(int i=0;i<xs.size();i++){
             e=e.sub(xs.get(i),es.get(i));
@@ -125,11 +119,11 @@ public abstract class Expression {
     }
     public abstract int numMinusSigns();//number of negative sign factors (accounting for powers)
     public abstract List<Expression> getCoef();//Might need to be ExpressionNode or something like that
-    public abstract List<Expression> getCoef(List<Var> xs);//Might need to be ExpressionNode or something like that
+    public abstract List<Expression> getCoef(List<expression.Var> xs);//Might need to be ExpressionNode or something like that
     public abstract Expression getVarPart();//Part that is not the coefficient without considering position
-    public abstract Expression getVarPart(List<Var> xs);//Part that is not the coefficient without considering position
+    public abstract Expression getVarPart(List<expression.Var> xs);//Part that is not the coefficient without considering position
     public abstract Expression coef();
-    public abstract Expression coef(List<Var> xs);
+    public abstract Expression coef(List<expression.Var> xs);
     public abstract Expression gcf(Expression e);
     public abstract Expression lcm(Expression e);
     public abstract Expression takeOut(Expression e);
@@ -146,7 +140,7 @@ public abstract class Expression {
     public abstract Expression negateWithColor(Color color);//negates and colors negative sign
     public abstract GenBool isFinite();
 
-    public Set solveZero(Var x){
+    public Set solveZero(expression.Var x){
         return new Eq(this,new Zero()).solve(x);
     }
     public boolean isOne(){
@@ -164,6 +158,20 @@ public abstract class Expression {
     public Expression cbrt(){
         return root(3);
     }
+
+    public abstract Expression replaceAndUpdateFactorGroup(Expression e, Expression f, List<FactorGroup> list);//makes replacement
+    //and updates the indices of FactorGroups
+    public abstract Expression replaceAndUpdate(Expression e, Expression f, List<Expression> list);//makes replacement
+    //and updates the indices of Expressions
+
+    public abstract Expression replaceAndUpdate(Expression e, Expression f, List<Expression> list,List<FactorGroup> list1);//makes replacement
+    //and updates the indices of Expressions and FactorGroups
+    public abstract Expression replaceWithSingleAndUpdateGroups(List<Expression> list, Expression h,List<FactorGroup> groups);
+    //replaces expressions and updates the indices of FactorGroups
+    public abstract Expression removeTermsAndUpdate(List<Term> list2, List<List<Term>> list1);
+
+    public abstract Expression replaceWithSingleAndUpdate(List<Term> list2, Expression expression, List<List<Term>> list1);
+    //replaces expressions and updates the indices of FactorGroups
 
     public Expression replaceWithSingle(List<? extends Expression> list, Expression e){
         if(list.isEmpty()){
@@ -197,17 +205,27 @@ public abstract class Expression {
         return varExps().removeRepeats();
     }
 
-    public abstract Expression replaceAndUpdateFactorGroup(Expression e, Expression f, List<FactorGroup> list);//makes replacement
-    //and updates the indices of FactorGroups
-    public abstract Expression replaceAndUpdate(Expression e, Expression f, List<Expression> list);//makes replacement
-    //and updates the indices of Expressions
+    public abstract String toStringHelper();
+    //makes subscripts and superscripts look nicer
+    public static String cleanUpScript(String string) {
+        return string.replaceAll("\\\\frac","\\\\powfrac");
+    }
+    @Override
+    public String toString() {
+        String str=toStringHelper();
+        return color!=Color.INHERIT?"\\"+color+"{"+str+"}":str;
+    }
 
-    public abstract Expression replaceAndUpdate(Expression e, Expression f, List<Expression> list,List<FactorGroup> list1);//makes replacement
-    //and updates the indices of Expressions and FactorGroups
-    public abstract Expression replaceWithSingleAndUpdateGroups(List<Expression> list, Expression h,List<FactorGroup> groups);
-    //replaces expressions and updates the indices of FactorGroups
-    public abstract Expression removeTermsAndUpdate(List<Term> list2, List<List<Term>> list1);
+    public Color color=Color.INHERIT;
+    public int group=-1;
+    public Expression(Color color){
+        this.color=color;
+    }
+    public static String applyColor(Color color, String string){
+        return string.isEmpty() ?"":color!=Color.INHERIT?"\\"+color+"{"+string+"}":string;
+    }
+    public Expression(){
 
-    public abstract Expression replaceWithSingleAndUpdate(List<Term> list2, Expression expression, List<List<Term>> list1);
-    //replaces expressions and updates the indices of FactorGroups
+    }
+
 }
