@@ -72,6 +72,7 @@ public class List<T> implements Iterable<T>{
         f.accept(list1);
         return new List<>(list1);
     }
+
     public <U>  List<U> fill(Function<T,U> f){
         List<U> returnList=new List<>();
         forEach(p->returnList.push(f.apply(p)));

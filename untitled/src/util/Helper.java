@@ -112,4 +112,8 @@ public class Helper {
     public static List<Var> vars(String... strs){
         return vars(List.of(strs));
     }
+
+    public static <T> T copy(T t) {
+
+    }
 }

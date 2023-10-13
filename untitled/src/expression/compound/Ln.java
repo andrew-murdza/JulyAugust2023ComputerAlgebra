@@ -5,11 +5,11 @@ import expression.dexp.E;
 
 public class Ln extends Log {
     public Ln(Expression inside){
-        super(new E(),inside);
+        super(inside,new E());
     }
 
     @Override
     public String toStringHelper() {
-        return "\\ln\\left("+inside+"\\right)";
+        return "\\ln\\left("+e+"\\right)";
     }
 }

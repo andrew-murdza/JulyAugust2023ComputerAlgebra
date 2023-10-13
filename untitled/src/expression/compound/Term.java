@@ -5,7 +5,18 @@ import expression.Expression;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Term{
+public class Term extends UniaryExpression{
+    public Term(Expression e,Color color,Color signColor,boolean isAdded,int group,int signGroup){
+        super(e);
+        this.color=color;
+        this.signColor=signColor;
+        this.isAdded=isAdded;
+        this.group=group;
+        this.signGroup=signGroup;
+    }
+    public static Term of(Expression e){
+        return FactorList.of(e.getCoef()).isStrNeg().isTrue()?new Term(e.negate(),false):new Term(e,true);
+    }
     public Expression e;//Might be ExpressionNode or something like that
     public Color color;
     public Color signColor;
@@ -24,5 +35,10 @@ public class Term{
     public Term(Expression e, Color color, boolean isAdded, int group){
         this(e,color,color,isAdded,group,-1);
     }
-
+    public Expression toExpression(){
+        return (isAdded?e:e.negateWithColor(signColor,signGroup)).setColor(color).setGroup(group);
+    }
+    public String toStringHelper(){
+        return toExpression().toStringHelper();
+    }
 }

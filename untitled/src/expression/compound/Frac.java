@@ -1,15 +1,15 @@
 package expression.compound;
 
 import expression.Expression;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class Frac extends Expression {
-    public Expression num;
-    public Expression denom;
+public class Frac extends BinaryExpression {
+
+    public Frac(Expression e, Expression f) {
+        super(e, f);
+    }
 
     @Override
     public String toStringHelper() {
-        return "\\frac{"+num+"}{"+denom+"}";
+        return "\\frac{"+e+"}{"+f+"}";
     }
 }

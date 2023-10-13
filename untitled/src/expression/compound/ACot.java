@@ -1,14 +1,12 @@
 package expression.compound;
 
 import expression.Expression;
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
-public class ACot extends Expression {
-    public Expression inside;
-
+public class ACot extends UniaryExpression {
+    public ACot(Expression e) {
+        super(e);
+    }
     @Override
     public String toStringHelper() {
-        return "\\arccot\\left("+inside+"\\right)";
+        return "\\arccot\\left("+e+"\\right)";
     }
 }

@@ -25,6 +25,6 @@ public class SqrtSq extends ApplyToEach<PowExp> {
 
     @Override
     public Expression editExpression(List<PowExp> list, Expression e) {
-        return e.replace(list,p->((NthRoot)((PowExp)p).base).inside);
+        return e.replace(list,p->((NthRoot)((PowExp)p).e).e);
     }
 }

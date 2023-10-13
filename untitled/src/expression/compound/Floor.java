@@ -2,11 +2,12 @@ package expression.compound;
 
 import expression.Expression;
 
-public class Floor extends Expression {
-    public Expression inside;
-
+public class Floor extends UniaryExpression {
+    public Floor(Expression e) {
+        super(e);
+    }
     @Override
     public String toStringHelper() {
-        return "\\left\\lfloor"+inside.toString()+"\\right\\rfloor";
+        return "\\left\\lfloor"+e+"\\right\\rfloor";
     }
 }

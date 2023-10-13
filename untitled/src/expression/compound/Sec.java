@@ -1,14 +1,14 @@
 package expression.compound;
 
 import expression.Expression;
-import lombok.AllArgsConstructor;
+public class Sec extends UniaryExpression {
 
-@AllArgsConstructor
-public class Sec extends Expression {
-    public Expression inside;
+    public Sec(Expression e) {
+        super(e);
+    }
 
     @Override
     public String toStringHelper() {
-        return "\\sec\\left("+inside+"\\right)";
+        return "\\sec\\left("+e+"\\right)";
     }
 }

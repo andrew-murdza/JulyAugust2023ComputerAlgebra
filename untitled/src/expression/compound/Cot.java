@@ -1,14 +1,13 @@
 package expression.compound;
 
 import expression.Expression;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class Cot extends Expression {
-    public Expression inside;
-
+public class Cot extends UniaryExpression {
+    public Cot(Expression e) {
+        super(e);
+    }
     @Override
     public String toStringHelper() {
-        return "\\cot\\left("+inside+"\\right)";
+        return "\\cot\\left("+e+"\\right)";
     }
 }

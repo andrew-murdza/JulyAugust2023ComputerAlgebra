@@ -1,13 +1,15 @@
 package expression.compound;
 
 import expression.Expression;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class Abs extends Expression {
-    public Expression inside;
+public class Abs extends UniaryExpression {
+
+    public Abs(Expression e) {
+        super(e);
+    }
+
     @Override
     public String toStringHelper() {
-        return "\\left|"+inside+"\\right|";
+        return "\\left|"+e+"\\right|";
     }
 }

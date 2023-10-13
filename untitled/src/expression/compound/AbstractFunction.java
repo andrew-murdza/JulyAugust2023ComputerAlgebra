@@ -7,11 +7,15 @@ import util.List;
 import java.util.HashMap;
 
 
-public class AbstractFunction extends Expression{
-    public Expression inside;
+public class AbstractFunction extends UniaryExpression{
+
     public String name;
     public List<HashMap<Expression,Expression>> knownVals;
     public Int n;//number of derivatives taken
+
+    public AbstractFunction(Expression e) {
+        super(e);
+    }
 
     private String genPrimes(){
         if(n.i==0){

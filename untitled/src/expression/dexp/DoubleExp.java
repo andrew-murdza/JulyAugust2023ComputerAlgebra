@@ -13,6 +13,10 @@ public class DoubleExp extends Expression {
         super(color);
         this.val=val;
     }
+    protected DoubleExp(double val, Color color,int group){
+        super(color,group);
+        this.val=val;
+    }
 
     public static DoubleExp of(double val,Color color){
         return val%1==0?Int.of((int)val,color):new DoubleExp(val,color);

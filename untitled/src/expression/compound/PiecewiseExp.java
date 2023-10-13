@@ -19,7 +19,7 @@ public class PiecewiseExp extends Expression {
     }
 
     @AllArgsConstructor
-    public class PiecewisePair{
+    public static class PiecewisePair{
         public Expression e;
         public Rel rel;
     }

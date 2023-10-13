@@ -2,17 +2,21 @@ package expression.compound;
 
 import expression.Expression;
 import expression.Var;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
-public class Deriv extends Expression {
+
+public class Deriv extends UniaryExpression {
     public Var x=new Var("x");
-    public Expression inside;
+
+    public Deriv(Expression e) {
+        super(e);
+    }
+    public Deriv(Expression e, Var x){
+        this(e);
+        this.x=x;
+    }
 
     @Override
     public String toStringHelper() {
-        return "\\frac{d}{d"+x+"}\\left("+inside+"}";
+        return "\\frac{d}{d"+x+"}\\left("+e+"}";
     }
 }

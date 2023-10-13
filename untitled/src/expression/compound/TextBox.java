@@ -1,13 +1,13 @@
-package src.expression.compound;
+package expression.compound;
 
 import expression.Expression;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Abs extends Expression {
-    public Expression inside;
+public class TextBox extends Expression {
+    public Expression e;
     @Override
     public String toStringHelper() {
-        return "\\left|"+inside+"\\right|";
+        return "\\tbs{"+e+"}";
     }
 }

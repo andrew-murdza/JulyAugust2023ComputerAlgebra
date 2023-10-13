@@ -2,17 +2,20 @@ package expression.compound;
 
 import expression.Expression;
 import expression.Var;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
-public class AntiDeriv extends Expression {
+public class AntiDeriv extends UniaryExpression {
     public Var x=new Var("x");
-    public Expression inside;
+
+    public AntiDeriv(Expression e) {
+        super(e);
+    }
+    public AntiDeriv(Expression e, Var x){
+        this(e);
+        this.x=x;
+    }
 
     @Override
     public String toStringHelper() {
-        return "\\int"+inside+"\\,\\text{d}"+x;
+        return "\\int"+e+"\\,\\text{d}"+x;
     }
 }

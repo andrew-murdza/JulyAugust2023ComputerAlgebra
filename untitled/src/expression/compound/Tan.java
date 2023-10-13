@@ -1,14 +1,15 @@
 package expression.compound;
 
 import expression.Expression;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class Tan extends Expression {
-    public Expression inside;
+public class Tan extends UniaryExpression {
+
+    public Tan(Expression e) {
+        super(e);
+    }
 
     @Override
     public String toStringHelper() {
-        return "\\tan\\left("+inside+"\\right)";
+        return "\\tan\\left("+e+"\\right)";
     }
 }

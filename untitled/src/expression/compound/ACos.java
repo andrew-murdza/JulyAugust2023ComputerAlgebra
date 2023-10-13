@@ -1,14 +1,13 @@
 package expression.compound;
 
 import expression.Expression;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class ACos extends Expression {
-    public Expression inside;
-
+public class ACos extends UniaryExpression {
+    public ACos(Expression e) {
+        super(e);
+    }
     @Override
     public String toStringHelper() {
-        return "\\arccos\\left("+inside+"\\right)";
+        return "\\arccos\\left("+e+"\\right)";
     }
 }

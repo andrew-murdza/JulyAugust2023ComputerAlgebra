@@ -4,6 +4,10 @@ import color.Color;
 
 public class Int extends DoubleExp {
     public int i;
+    protected Int(int i, Color color, int group){
+        super(i,color,group);
+        this.i=i;
+    }
     protected Int(int i, Color color){
         super(i,color);
         this.i=i;

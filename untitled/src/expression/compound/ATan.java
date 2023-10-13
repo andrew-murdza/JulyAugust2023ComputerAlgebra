@@ -1,14 +1,13 @@
 package expression.compound;
 
 import expression.Expression;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class ATan extends Expression {
-    public Expression inside;
-
+public class ATan extends UniaryExpression {
+    public ATan(Expression e) {
+        super(e);
+    }
     @Override
     public String toStringHelper() {
-        return "\\arctan\\left("+inside+"\\right)";
+        return "\\arctan\\left("+e+"\\right)";
     }
 }

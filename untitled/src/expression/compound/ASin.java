@@ -1,14 +1,13 @@
 package expression.compound;
 
 import expression.Expression;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class ASin extends Expression {
-    public Expression inside;
-
+public class ASin extends UniaryExpression {
+    public ASin(Expression e) {
+        super(e);
+    }
     @Override
     public String toStringHelper() {
-        return "\\arcsin\\left("+inside+"\\right)";
+        return "\\arcsin\\left("+e+"\\right)";
     }
 }
